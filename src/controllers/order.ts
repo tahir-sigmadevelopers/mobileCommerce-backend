@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { NewOrderRequestBody } from "../types/types.js";
 import { Order } from "../models/order.js";
 import { invalidatesCache, reduceStock } from "../utils/features.js";
-import { myCache } from "../app.js";
+import { myCache } from "../index.js";
 import ErrorHandler from "../utils/utility-class.js";
 import { TryCatch } from "../middlewares/error.js";
 

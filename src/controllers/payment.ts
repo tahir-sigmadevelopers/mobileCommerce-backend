@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { NewCouponBody } from "../types/types.js";
 import { Coupon } from "../models/coupon.js";
-import { stripe } from "../app.js";
+import { stripe } from "../index.js";
 import { TryCatch } from "../middlewares/error.js";
 import ErrorHandler from "../utils/utility-class.js";
 

@@ -1,20 +1,13 @@
 {
-    "version": 2,
-    "name": "ECOMMERCE-MERN",
-    "builds": [
-      {
-        "src": "dist/**/*.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/dist/app.js"
-      }
-    ],
-    "env": {
-      "NODE_ENV": "production"
+  "version": 2,
+  "name": "ECOMMERCE-MERN",
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/dist/app.js"
     }
+  ],
+  "env": {
+    "NODE_ENV": "production"
   }
-  
+}

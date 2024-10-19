@@ -19,12 +19,12 @@ export const newProduct = async (
 
         let image = req.file
 
-        if (!title || !price || !image || !stock || !category) {
-            return res.status(400).json({
-                success: false,
-                message: "All fields are required"
-            })
-        }
+        // if (!title || !price || !image || !stock || !category) {
+        //     return res.status(400).json({
+        //         success: false,
+        //         message: "All fields are required"
+        //     })
+        // }
 
         await Product.create({
             title, image: image?.path, price, stock, category: category.toLowerCase(),

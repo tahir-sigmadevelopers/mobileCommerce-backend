@@ -4,3 +4,5 @@
   "builds": [{ "src": "public/app.js", "use": "@vercel/node" }],
   "routes": [{ "src": "/(.*)", "dest": "public/app.js" }]
 }
+
+// npm install && mkdir -p uploads && npm run build

@@ -25,9 +25,9 @@ config({
 connectDB();
 
 const port = process.env.PORT || 5000;
-// const stripeSecret = process.env.STRIPE_SECRET || "";
+const stripeSecret = process.env.STRIPE_SECRET || "";
 
-// export const stripe = new Stripe(stripeSecret);
+export const stripe = new Stripe(stripeSecret);
 export const myCache = new NodeCache();
 
 

@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import { baseQuery, NewProductRequestBody, NewUserRequestBody, searchRequestQuery } from "../types/types.js";
 import { Product } from "../models/product.js";
 import fs from "fs";
-import { myCache } from "../index.js";
+import { myCache } from "../app.js";
 import { invalidatesCache } from "../utils/features.js";
 
 

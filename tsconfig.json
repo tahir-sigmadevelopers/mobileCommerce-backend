@@ -4,7 +4,7 @@
     "module": "NodeNext",
     "rootDir": "src",
     "moduleResolution": "NodeNext",
-    "outDir": "dist",
+    "outDir": "public",
     "strict": true
   }
 }

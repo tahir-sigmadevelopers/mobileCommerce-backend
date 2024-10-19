@@ -1,14 +1,14 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
   "type": "module",
+  "main": "public/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/app.js",
+    "start": "node public/index.js",
     "build": "tsc",
     "watch": "tsc -w",
-    "dev": "nodemon dist/app.js"
+    "dev": "nodemon public/index.js"
   },
   "keywords": [],
   "author": "",

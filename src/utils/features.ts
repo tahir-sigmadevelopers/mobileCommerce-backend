@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose'
 import { invalidatesCacheProps, OrderItemType } from '../types/types.js';
-import { myCache } from '../index.js';
+import { myCache } from '../app.js';
 import { Product } from '../models/product.js';
 
 export const connectDB = async () => {

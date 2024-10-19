@@ -5,10 +5,10 @@
   "main": "public/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node public/index.js",
+    "start": "node public/app.js",
     "build": "tsc",
     "watch": "tsc -w",
-    "dev": "nodemon public/index.js"
+    "dev": "nodemon public/app.js"
   },
   "keywords": [],
   "author": "",

@@ -19,6 +19,34 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: [true, "Please Add Stock"]
     },
+    ratings: {
+        type: Number,
+        default: 0,
+    },
+    numOfReviews: {
+        type: Number,
+        default: 0,
+    },
+    reviews: [
+        {
+            user: {
+                type: String,
+                ref: "User",
+            },
+            name: {
+                type: String,
+                // required: [true, "Please Enter Product Name"],
+            },
+            comment: {
+                type: String,
+                required: [true, "Please Enter Comment"],
+            },
+            rating: {
+                type: Number,
+                required: [true, "Please Enter Rating"],
+            },
+        },
+    ],
 
     category: {
         type: String,

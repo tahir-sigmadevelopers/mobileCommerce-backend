@@ -5,6 +5,8 @@ import { Product } from "../models/product.js";
 import fs from "fs";
 import { myCache } from "../app.js";
 import { invalidatesCache } from "../utils/features.js";
+import ErrorHandler from "../utils/utility-class.js";
+import { TryCatch } from "../middlewares/error.js";
 
 
 export const newProduct = async (
@@ -41,6 +43,76 @@ export const newProduct = async (
     }
 }
 
+export const addUserReview = TryCatch(
+    async (req, res, next) => {
+
+        const { rating, comment, id, user } = req.body;
+
+        console.log(req.body);
+
+        const review = {
+            user,
+            name: user?._name,
+            rating: Number(rating),
+            comment,
+
+        };
+
+        const product = await Product.findById(id).populate("reviews.user");
+
+        // console.log(`product hoon main`, product);
+
+
+        if (!product) return next(new ErrorHandler(`Product Does Not Exists`, 400));
+
+
+        // Adding Review Functionality
+        const isReviewed = product.reviews.find((rev) => {
+            // Check if rev.user is an object with an _id property
+            if (rev.user && typeof rev.user === 'object' && '_id' in rev.user) {
+                const userObj = rev.user as { _id: string }; // Assert the type safely
+                return userObj._id === user; // Perform comparison
+            }
+            return false; // In case rev.user is not an object, return false
+        });
+
+
+
+
+
+
+        if (isReviewed) {
+            product.reviews.forEach((rev) => {
+                // Check if rev.user is an object with an _id property
+                if (rev.user && typeof rev.user === 'object' && '_id' in rev.user) {
+                    const userObj = rev.user as { _id: string }; // Now safe to assert the type
+
+                    if (userObj._id.toString().trim() === user.toString().trim()) {
+                        rev.rating = rating;
+                        rev.comment = comment;
+                    }
+                }
+            });
+        } else {
+            product.reviews.push(review);
+            product.numOfReviews = product.reviews.length;
+        }
+
+        let avg = 0;
+
+        product.reviews.forEach((rev) => {
+            avg += rev.rating;
+        });
+
+        product.ratings = avg / product.reviews.length;
+
+        await product.save({ validateBeforeSave: false });
+        return res.status(200).json({
+            success: true,
+            message: "Review Added Successfully",
+        });
+    })
+
 
 // Revalidate on New, Update, Delete & on New Order
 export const getLatestProducts = async (
@@ -70,7 +142,7 @@ export const getLatestProducts = async (
         });
     } catch (error: any) {
         console.log(error);
-        
+
         return next(error)
     }
 }
@@ -127,7 +199,7 @@ export const getProductDetail = async (
         else {
             // get product from server
 
-            product = await Product.findById(id)
+            product = await Product.findById(id).populate("reviews.user")
 
             if (!product) {
                 return res.status(404).json({ message: "Product not found", success: false })
@@ -138,7 +210,7 @@ export const getProductDetail = async (
 
         return res.status(200).json({
             success: true,
-            message: `User Detail`,
+            message: `User Detail ${product}`,
             product
         });
     } catch (error: any) {
@@ -161,7 +233,7 @@ export const updateProduct = async (
     try {
 
         const { title, price, stock, category } = req.body;
-         const id = req.params.id;
+        const id = req.params.id;
         let product = await Product.findById(id)
 
 
@@ -215,7 +287,7 @@ export const deleteProduct = async (
     try {
 
         const id = req.params.id;
-        
+
         let product = await Product.findById(id)
 
 
